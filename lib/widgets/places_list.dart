@@ -9,7 +9,14 @@ class PlacesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (places.isEmpty) {
-      return const Center(child: Text('No places found. Start adding some!'));
+      return Center(
+        child: Text(
+          'No places found. Start adding some!',
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+      );
     }
     return ListView.builder(
       itemCount: places.length,
