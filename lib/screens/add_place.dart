@@ -69,7 +69,7 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: _savePlace,
                     icon: const Icon(Icons.add),
                     label: const Text('Save'),
                   ),
