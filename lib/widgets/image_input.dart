@@ -44,11 +44,14 @@ class ImageInputState extends State<ImageInput> {
     if (_selectedImage != null) {
       content = ClipRRect(
         borderRadius: BorderRadius.circular(7),
-        child: Image.file(
-          _selectedImage!,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
+        child: GestureDetector(
+          onTap: _takePicture,
+          child: Image.file(
+            _selectedImage!,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
         ),
       );
     }
