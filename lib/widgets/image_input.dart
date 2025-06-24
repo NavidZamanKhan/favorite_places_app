@@ -10,10 +10,13 @@ class ImageInput extends StatefulWidget {
 }
 
 class ImageInputState extends State<ImageInput> {
+  void _takePicture() {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           width: 1,
           color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
@@ -26,7 +29,7 @@ class ImageInputState extends State<ImageInput> {
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        onPressed: () {},
+        onPressed: _takePicture,
         icon: const Icon(Icons.camera),
         label: const Text("Take Picture"),
       ),
