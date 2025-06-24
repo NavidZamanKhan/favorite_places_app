@@ -53,6 +53,7 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 ),
                 controller: _titleController,
               ),
+              // * Note: image input will be added here in the future.
             ),
             const SizedBox(height: 8),
             Row(
