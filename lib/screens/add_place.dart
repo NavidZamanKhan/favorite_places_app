@@ -1,4 +1,5 @@
 import 'package:favorite_places_app/providers/user_places.dart';
+import 'package:favorite_places_app/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,8 +54,8 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 ),
                 controller: _titleController,
               ),
-              // * Note: image input will be added here in the future.
             ),
+            const ImageInput(),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
