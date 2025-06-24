@@ -13,14 +13,18 @@ class ImageInputState extends State<ImageInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+        ),
+      ),
       height: 250,
       width: double.infinity,
       alignment: Alignment.center,
       child: TextButton.icon(
         style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: () {},
         icon: const Icon(Icons.camera),
