@@ -18,7 +18,7 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
 
   void _savePlace() {
     final enteredTitle = _titleController.text;
-    if (enteredTitle.isEmpty) {
+    if (enteredTitle.isEmpty || _selectedImage == null) {
       return;
     }
     ref
@@ -60,11 +60,10 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 controller: _titleController,
               ),
               const SizedBox(height: 12),
+              //!ImageInput is a widget that allows the user to pick an image from the camera or gallery
               ImageInput(
                 onPickImage: (image) {
-                  setState(() {
-                    _selectedImage = image;
-                  });
+                  _selectedImage = image;
                 },
               ),
               const SizedBox(height: 12),
