@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:favorite_places_app/providers/user_places.dart';
 import 'package:favorite_places_app/widgets/image_input.dart';
 import 'package:flutter/material.dart';
