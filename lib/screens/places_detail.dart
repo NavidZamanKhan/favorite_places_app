@@ -13,20 +13,14 @@ class PlacesDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(place.title, style: const TextStyle(color: Colors.black)),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Title(
-            color: Theme.of(context).colorScheme.primary,
-            child: Text(
-              place.title,
-              style: const TextStyle(color: Colors.black, fontSize: 24),
-            ),
+          Image.file(
+            place.image,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
-          const SizedBox(height: 10),
-          Text(place.id),
-          const SizedBox(height: 10),
-          Center(child: Image.file(File(place.image.path))),
-          const SizedBox(height: 10),
         ],
       ),
     );
