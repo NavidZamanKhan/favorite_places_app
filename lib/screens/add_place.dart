@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:favorite_places_app/providers/user_places.dart';
 import 'package:favorite_places_app/widgets/image_input.dart';
+import 'package:favorite_places_app/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -49,6 +50,9 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                   labelText: 'Place Title',
@@ -65,6 +69,8 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                   _selectedImage = image;
                 },
               ),
+              const SizedBox(height: 12),
+              const LocationInput(),
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
