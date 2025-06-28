@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 
+//* A stateful widget that allows users to input location data
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
 
@@ -41,8 +42,10 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    //* A column widget that arranges its children vertically
     return Column(
       children: [
+        //* A container widget that displays the location preview area
         Container(
           height: 160,
           width: double.infinity,
@@ -54,15 +57,18 @@ class _LocationInputState extends State<LocationInput> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
             ),
           ),
+          //* A text widget that shows "No Location Chosen" message
           child: Text(
             "No Location Chosen",
             textAlign: TextAlign.center,
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
         ),
+        //* A row widget that arranges its children horizontally
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            //* A text button widget that gets the current location
             TextButton.icon(
               onPressed: _getCurrentLocation,
               label: const Text("Get Current Location"),
@@ -74,6 +80,7 @@ class _LocationInputState extends State<LocationInput> {
                 ),
               ),
             ),
+            //* A text button widget that allows selecting location on map
             TextButton.icon(
               onPressed: () {},
               label: Text("Select on Map"),
