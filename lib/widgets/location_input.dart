@@ -13,7 +13,15 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
+  //* Variable to store the picked location data
+  Location? _pickedLoaction;
+
+  //* Boolean flag to track if location is being retrieved
+  var isGettingLocation = false;
+
+  //* Method to get the current location from device GPS
   void _getCurrentLocation() async {
+    //* Create a new Location instance
     Location location = Location();
 
     bool serviceEnabled;
@@ -36,12 +44,32 @@ class _LocationInputState extends State<LocationInput> {
       }
     }
 
+    setState(() {
+      isGettingLocation = true;
+    });
+
     locationData = await location.getLocation();
-    print(locationData);
+
+    setState(() {
+      isGettingLocation = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    //* Default content to show when no location is selected
+    Widget previewContent = Text(
+      "No Location Chosen",
+      textAlign: TextAlign.center,
+      style: TextStyle(color: Theme.of(context).colorScheme.primary),
+    );
+    //* Show loading indicator while getting location
+    if (isGettingLocation) {
+      previewContent = CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.primary,
+      );
+    }
+
     //* A column widget that arranges its children vertically
     return Column(
       children: [
@@ -57,12 +85,8 @@ class _LocationInputState extends State<LocationInput> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
             ),
           ),
-          //* A text widget that shows "No Location Chosen" message
-          child: Text(
-            "No Location Chosen",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
+          //* A text widget that shows "No Location Chosen" message or loading indicator
+          child: previewContent,
         ),
         //* A row widget that arranges its children horizontally
         Row(
