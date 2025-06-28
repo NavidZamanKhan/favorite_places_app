@@ -12,6 +12,33 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
+  void _getCurrentLocation() async {
+    Location location = Location();
+
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    LocationData locationData;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    locationData = await location.getLocation();
+    print(locationData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,6 +46,7 @@ class _LocationInputState extends State<LocationInput> {
         Container(
           height: 160,
           width: double.infinity,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
@@ -26,7 +54,6 @@ class _LocationInputState extends State<LocationInput> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
             ),
           ),
-          alignment: Alignment.center,
           child: Text(
             "No Location Chosen",
             textAlign: TextAlign.center,
@@ -37,7 +64,7 @@ class _LocationInputState extends State<LocationInput> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton.icon(
-              onPressed: () {},
+              onPressed: _getCurrentLocation,
               label: const Text("Get Current Location"),
               icon: const Icon(Icons.location_on_outlined),
               style: TextButton.styleFrom(
