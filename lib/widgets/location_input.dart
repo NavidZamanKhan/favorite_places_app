@@ -1,10 +1,9 @@
 import 'dart:convert';
-
+import 'package:favorite_places_app/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
-//* A stateful widget that allows users to input location data
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
 
@@ -15,15 +14,20 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  //* Variable to store the picked location data
-  Location? _pickedLoaction;
+  PlaceLocation? _pickedLocation;
 
-  //* Boolean flag to track if location is being retrieved
+  String get locationImage {
+    if (_pickedLocation == null) {
+      return "";
+    }
+    final lat = _pickedLocation!.latitude;
+    final lng = _pickedLocation!.longitude;
+    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyCCqRYUmzm_8FVLA058QVCTOyqT_VmSUZQ";
+  }
+
   var isGettingLocation = false;
 
-  //* Method to get the current location from device GPS
   void _getCurrentLocation() async {
-    //* Create a new Location instance
     Location location = Location();
 
     bool serviceEnabled;
@@ -53,38 +57,53 @@ class _LocationInputState extends State<LocationInput> {
     locationData = await location.getLocation();
     final lat = locationData.latitude;
     final lng = locationData.longitude;
+    if (lat == null || lng == null) {
+      return;
+    }
 
     final url = Uri.parse(
-      "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=YOUR_API_KEY",
+      "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyCCqRYUmzm_8FVLA058QVCTOyqT_VmSUZQ",
     );
     final response = await http.get(url);
     final resData = json.decode(response.body);
-    final adress = resData['results'][0]["formatted_address"];
+    final address = resData['results'][0]["formatted_address"];
 
     setState(() {
+      _pickedLocation = PlaceLocation(
+        latitude: lat,
+        longitude: lng,
+        address: address,
+      );
       isGettingLocation = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    //* Default content to show when no location is selected
     Widget previewContent = Text(
       "No Location Chosen",
       textAlign: TextAlign.center,
       style: TextStyle(color: Theme.of(context).colorScheme.primary),
     );
-    //* Show loading indicator while getting location
+    if (_pickedLocation != null) {
+      previewContent = ClipRRect(
+        borderRadius: BorderRadius.circular(7),
+        child: Image.network(
+          locationImage,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+      );
+    }
     if (isGettingLocation) {
       previewContent = CircularProgressIndicator(
         color: Theme.of(context).colorScheme.primary,
       );
     }
 
-    //* A column widget that arranges its children vertically
     return Column(
       children: [
-        //* A container widget that displays the location preview area
         Container(
           height: 160,
           width: double.infinity,
@@ -96,14 +115,11 @@ class _LocationInputState extends State<LocationInput> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
             ),
           ),
-          //* A text widget that shows "No Location Chosen" message or loading indicator
           child: previewContent,
         ),
-        //* A row widget that arranges its children horizontally
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            //* A text button widget that gets the current location
             TextButton.icon(
               onPressed: _getCurrentLocation,
               label: const Text("Get Current Location"),
@@ -115,7 +131,6 @@ class _LocationInputState extends State<LocationInput> {
                 ),
               ),
             ),
-            //* A text button widget that allows selecting location on map
             TextButton.icon(
               onPressed: () {},
               label: Text("Select on Map"),
