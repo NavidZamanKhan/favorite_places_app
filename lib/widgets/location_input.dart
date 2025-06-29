@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
 //* A stateful widget that allows users to input location data
 class LocationInput extends StatefulWidget {
@@ -49,6 +51,15 @@ class _LocationInputState extends State<LocationInput> {
     });
 
     locationData = await location.getLocation();
+    final lat = locationData.latitude;
+    final lng = locationData.longitude;
+
+    final url = Uri.parse(
+      "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=YOUR_API_KEY",
+    );
+    final response = await http.get(url);
+    final resData = json.decode(response.body);
+    final adress = resData['results'][0]["formatted_address"];
 
     setState(() {
       isGettingLocation = false;
