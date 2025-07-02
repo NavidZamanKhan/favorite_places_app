@@ -5,6 +5,12 @@ class PlacesDetailScreen extends StatelessWidget {
   const PlacesDetailScreen({super.key, required this.place});
   final Place place;
 
+  String get locationImage {
+    final lat = place.location.latitude;
+    final lng = place.location.longitude;
+    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyAncCdJh6wQo_WlJofA9xe54G1meyB2X3I";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +24,41 @@ class PlacesDetailScreen extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: NetworkImage(locationImage),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7),
+                      ],
+                      begin: Alignment.topCenter,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    place.location.address,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -24,7 +24,7 @@ class _LocationInputState extends State<LocationInput> {
     }
     final lat = _pickedLocation!.latitude;
     final lng = _pickedLocation!.longitude;
-    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyCCqRYUmzm_8FVLA058QVCTOyqT_VmSUZQ";
+    return "https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$lat,$lng&key=AIzaSyAncCdJh6wQo_WlJofA9xe54G1meyB2X3I";
   }
 
   var isGettingLocation = false;
@@ -64,7 +64,7 @@ class _LocationInputState extends State<LocationInput> {
     }
 
     final url = Uri.parse(
-      "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyCCqRYUmzm_8FVLA058QVCTOyqT_VmSUZQ",
+      "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyAncCdJh6wQo_WlJofA9xe54G1meyB2X3I",
     );
     final response = await http.get(url);
     final resData = json.decode(response.body);
