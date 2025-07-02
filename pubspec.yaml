@@ -40,6 +40,7 @@ dependencies:
   image_picker: ^1.1.2
   location: ^8.0.1
   http: ^1.4.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -92,3 +93,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  assets:
+    - .env
