@@ -1,6 +1,7 @@
 import 'package:favorite_places_app/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../utils/address_utils.dart';
 
 class PlacesDetailScreen extends StatelessWidget {
   PlacesDetailScreen({super.key, required this.place});
@@ -53,7 +54,7 @@ class PlacesDetailScreen extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    place.location.address,
+                    removePlusCode(place.location.address),
                     style: Theme.of(
                       context,
                     ).textTheme.titleLarge!.copyWith(color: Colors.black),

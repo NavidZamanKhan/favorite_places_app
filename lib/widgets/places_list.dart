@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:favorite_places_app/models/place.dart';
 import 'package:favorite_places_app/screens/places_detail.dart';
 import 'package:flutter/material.dart';
+import '../utils/address_utils.dart';
 
 class PlacesList extends StatelessWidget {
   const PlacesList({super.key, required this.places});
@@ -47,7 +48,7 @@ class PlacesList extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                places[index].location.address,
+                removePlusCode(places[index].location.address),
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
